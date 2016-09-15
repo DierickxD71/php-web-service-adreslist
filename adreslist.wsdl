@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions name="MyWS"
+	targetNamespace="http://www.example.org/MyWS/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/MyWS/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.example.org/MyWS/">
+
+			<xsd:element name="GetCount">
+				<xsd:complexType>
+					<xsd:sequence>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="GetCountResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="xsd:positiveInteger" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="GetAll">
+				<xsd:complexType>
+					<xsd:sequence>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="GetAllResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="GetOne">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="RecordNumber" type="tns:int1to99999"
+							maxOccurs="1" minOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="GetOneResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="record" type="tns:oneRecord"
+							minOccurs="0" maxOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="AddOne">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="record" type="tns:oneRecord"
+							minOccurs="1" maxOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AddOneResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="xsd:string"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="DeleteOne">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="RecordNumber" type="tns:int1to99999"
+							maxOccurs="1" minOccurs="1">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="DeleteOneResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="out" type="xsd:string"></xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:simpleType name="int1to99999">
+				<xsd:restriction base="xsd:positiveInteger">
+					<xsd:maxInclusive value="99999"></xsd:maxInclusive>
+					<xsd:minInclusive value="1"></xsd:minInclusive>
+					<xsd:whiteSpace value="collapse"></xsd:whiteSpace>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="token255">
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="1"></xsd:minLength>
+					<xsd:maxLength value="255"></xsd:maxLength>
+					<xsd:whiteSpace value="collapse"></xsd:whiteSpace>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:complexType name="oneRecord">
+				<xsd:sequence>
+					<xsd:element name="id" type="tns:int1to99999" minOccurs="1" maxOccurs="1"></xsd:element>
+					<xsd:element name="firstName" type="tns:token255"
+						minOccurs="1" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="lastName" type="tns:token255"
+						minOccurs="1" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="streetName" type="tns:token255"
+						minOccurs="1" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="houseNumber" type="tns:int1to99999"
+						minOccurs="1" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="postalCode"
+						type="tns:pc1000to9999" minOccurs="1" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="cityName" type="tns:token255"
+						minOccurs="1" maxOccurs="1">
+					</xsd:element>
+					<xsd:element name="phoneNumber" type="tns:pnBEtype"
+						minOccurs="0" maxOccurs="1">
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:simpleType name="pc1000to9999">
+				<xsd:restriction base="xsd:int">
+					<xsd:maxInclusive value="9999"></xsd:maxInclusive>
+					<xsd:minInclusive value="1000"></xsd:minInclusive>
+					<xsd:whiteSpace value="collapse"></xsd:whiteSpace>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="pnBEtype">
+				<xsd:restriction base="xsd:string">
+					<xsd:pattern value="(0)(4)\d\d\s\d\d\s\d\d\s\d\d">
+					</xsd:pattern>
+					<xsd:pattern value="(0)\d{1,9}\d\s\d\d\s\d\d\s\d\d">
+					</xsd:pattern>
+					<xsd:pattern value="(0)\d{1,9}\d\s\d\d\d\s\d\d\d">
+					</xsd:pattern>
+					<xsd:pattern value="(0)\d{1,9}\s\d\d\s\d\d\s\d\d">
+					</xsd:pattern>
+					<xsd:pattern value="(0)\d{1,9}\s\d\d\d\s\d\d\d">
+					</xsd:pattern>
+					<xsd:whiteSpace value="collapse"></xsd:whiteSpace>
+				</xsd:restriction>
+			</xsd:simpleType>
+
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="GetCountRequest">
+		<wsdl:part name="parameters" element="tns:GetCount"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetCountResponse">
+		<wsdl:part name="parameters" element="tns:GetCountResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetAllRequest">
+		<wsdl:part name="parameters" element="tns:GetAll"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetAllResponse">
+		<wsdl:part name="parameters" element="tns:GetAllResponse" />
+	</wsdl:message>
+	<wsdl:message name="GetOneRequest">
+		<wsdl:part name="parameters" element="tns:GetOne"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetOneResponse">
+		<wsdl:part name="parameters" element="tns:GetOneResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="AddOneRequest">
+		<wsdl:part name="parameters" element="tns:AddOne"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="AddOneResponse">
+		<wsdl:part name="parameters" element="tns:AddOneResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="DeleteOneRequest">
+		<wsdl:part name="parameters" element="tns:DeleteOne"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="DeleteOneResponse">
+		<wsdl:part name="parameters" element="tns:DeleteOneResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="adreslist">
+		<wsdl:operation name="GetCount">
+			<wsdl:input message="tns:GetCountRequest"></wsdl:input>
+			<wsdl:output message="tns:GetCountResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="GetAll">
+			<wsdl:input message="tns:GetAllRequest"></wsdl:input>
+			<wsdl:output message="tns:GetAllResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="GetOne">
+			<wsdl:input message="tns:GetOneRequest"></wsdl:input>
+			<wsdl:output message="tns:GetOneResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddOne">
+			<wsdl:input message="tns:AddOneRequest"></wsdl:input>
+			<wsdl:output message="tns:AddOneResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteOne">
+			<wsdl:input message="tns:DeleteOneRequest"></wsdl:input>
+			<wsdl:output message="tns:DeleteOneResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="adreslist" type="tns:adreslist">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetCount">
+			<soap:operation soapAction="http://www.example.org/MyWS/GetCount" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetAll">
+			<soap:operation soapAction="http://www.example.org/MyWS/GetAll" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetOne">
+			<soap:operation soapAction="http://www.example.org/MyWS/GetOne" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddOne">
+			<soap:operation soapAction="http://www.example.org/MyWS/AddOne" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteOne">
+			<soap:operation soapAction="http://www.example.org/MyWS/DeleteOne" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="adreslist">
+		<wsdl:port binding="tns:adreslist" name="adreslist">
+			<soap:address location="http://localhost/adreslist.php" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>
