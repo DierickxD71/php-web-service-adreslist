@@ -11,5 +11,20 @@ I also include an export of the MySql database containing a table with 1000 addr
 
 Just put the WSDL and PHP together in a directory on a web server, import the database file and voila. (I used XAMPP)
 
+WARNING 1
+  If your web server is NOT 'localhost' you will have to edit the WSDL.
+  Near the bottom you'll find the line:
+    <soap:address location="http://localhost/adreslist.php" />
+  Change this to the URL of your server:
+    <soap:address location="http://<my_server_url>/adreslist.php" />
+
+WARNING 2
+  The PHP will try to contact the database 'adreslist' (or name your own) on 'localhost' (no need to change this).
+  The database is contacted using a user 'adreslist', password 'adreslist', and this user only has access to database 'adreslist'.
+  Figure out your own MySql settings and replace the line:
+    $my_DB_obj = new mysqli('localhost', 'adreslist', 'adreslist', 'adreslist');
+  With:
+    $my_DB_obj = new mysqli('localhost', 'my_user', 'my_password', 'my_db');
+
 Good luck.
 LLAP.
