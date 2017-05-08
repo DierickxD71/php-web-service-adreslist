@@ -11,11 +11,12 @@
 				</xsd:complexType>
 			</xsd:element>
 			<xsd:element name="GetCountResponse">
-				<xsd:complexType>
-					<xsd:sequence>
-						<xsd:element name="out" type="xsd:positiveInteger" />
-					</xsd:sequence>
-				</xsd:complexType>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:integer">
+						<xsd:minInclusive value="0"/>
+						<xsd:maxInclusive value="10000"/>
+					</xsd:restriction>
+				</xsd:simpleType>
 			</xsd:element>
 
 			<xsd:element name="GetAll">
